@@ -45,6 +45,10 @@ export default function App() {
     }
   };
 
+  const handleRemove = (paperId: string) => {
+    setCollectedPapers(prev => prev.filter(p => p.id !== paperId));
+  };
+
   return (
     <div className="min-h-screen bg-[#0f172a] text-slate-200 selection:bg-blue-500/30">
       {/* Header */}
@@ -159,6 +163,7 @@ export default function App() {
                     key={paper.id} 
                     paper={paper} 
                     isCollected={true} 
+                    onRemove={() => handleRemove(paper.id)}
                   />
                 ))}
               </div>

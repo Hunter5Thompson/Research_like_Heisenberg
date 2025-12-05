@@ -1,14 +1,15 @@
 import React from 'react';
 import { Paper } from '../types';
-import { Plus, Check, FileText } from 'lucide-react';
+import { Plus, Check, FileText, Trash2 } from 'lucide-react';
 
 interface Props {
   paper: Omit<Paper, 'id' | 'physicist'> | Paper;
   isCollected: boolean;
   onCollect?: () => void;
+  onRemove?: () => void;
 }
 
-export const PaperCard: React.FC<Props> = ({ paper, isCollected, onCollect }) => {
+export const PaperCard: React.FC<Props> = ({ paper, isCollected, onCollect, onRemove }) => {
   return (
     <div className={`
       group p-5 rounded-lg border transition-all duration-300 flex flex-col justify-between h-full
@@ -33,28 +34,37 @@ export const PaperCard: React.FC<Props> = ({ paper, isCollected, onCollect }) =>
         </p>
       </div>
 
-      {onCollect && (
-        <button
-          onClick={onCollect}
-          disabled={isCollected}
-          className={`
-            w-full py-2 px-4 rounded-md font-medium text-sm flex items-center justify-center gap-2 transition-all
-            ${isCollected
-              ? 'bg-emerald-900/30 text-emerald-400 cursor-default'
-              : 'bg-slate-700 text-slate-200 hover:bg-blue-600 hover:text-white'}
-          `}
-        >
-          {isCollected ? (
-            <>
-              <Check size={16} /> Collected
-            </>
-          ) : (
-            <>
-              <Plus size={16} /> Add to Collection
-            </>
-          )}
-        </button>
-      )}
+      <div className="mt-auto pt-4">
+        {onRemove ? (
+          <button
+            onClick={onRemove}
+            className="w-full py-2 px-4 rounded-md font-medium text-sm flex items-center justify-center gap-2 transition-all bg-slate-700/50 text-slate-400 hover:bg-red-950/50 hover:text-red-400 border border-transparent hover:border-red-900/50"
+          >
+            <Trash2 size={16} /> Remove
+          </button>
+        ) : onCollect && (
+          <button
+            onClick={onCollect}
+            disabled={isCollected}
+            className={`
+              w-full py-2 px-4 rounded-md font-medium text-sm flex items-center justify-center gap-2 transition-all
+              ${isCollected
+                ? 'bg-emerald-900/30 text-emerald-400 cursor-default'
+                : 'bg-slate-700 text-slate-200 hover:bg-blue-600 hover:text-white'}
+            `}
+          >
+            {isCollected ? (
+              <>
+                <Check size={16} /> Collected
+              </>
+            ) : (
+              <>
+                <Plus size={16} /> Add to Collection
+              </>
+            )}
+          </button>
+        )}
+      </div>
     </div>
   );
 };
