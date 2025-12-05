@@ -1,0 +1,5 @@
+{
+  "name": "Quantum Archives",
+  "description": "A research application to collect and analyze papers from Heisenberg, Pauli, Schrödinger, and Dirac using Gemini RAG and Search Grounding.",
+  "requestFramePermissions": []
+}
